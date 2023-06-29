@@ -7,87 +7,75 @@
 </head>
 <body>
     <form action="index.php" method="post">
-    <label>Username:</label><br>
-    <input type="text" name="username"><br>
-    <label>Password:</label><br>
-    <input type="password" name="password"><br>
-    <label>Country:</label><br>
-    <input type="text" name="country"><br>
-    <input type="submit" value="Log In">
+        <label>Username:</label><br>
+        <input type="text" name="username"><br>
+        <label>Password:</label><br>
+        <input type="password" name="password"><br>
+        <label>Country:</label><br>
+        <input type="text" name="country"><br>
+        <input type="submit" value="Log In" name="login">
+    </form>
+    <form action="index.php" method="post">
+        <label>Visa</label>
+        <input type="radio" name="credit_card" value="Visa"><br>
+        <label>MasterCard</label>
+        <input type="radio" name="credit_card" value="MasterCard"><br>
+        <label>PayPal</label>
+        <input type="radio" name="credit_card" value="PayPal"><br>
+        <input type="submit" name="credi_submit">
     </form>
 </body>
 </html>
 <?php 
-/*
-    $name = "tymek";
-    $emial = "tymekslomski@gmail.com";
-
-    $age = 21;
-
-    $emplyed = false;
-
-    echo "hello my name is {$name} <br>";
-    echo"my emial adres is {$emial} <br>";
-    echo"i have {$age} years right now";
-
-    //shop
-
-    $price = 5.99;
-    $value = 3;
-    $total = null;
-    $total = $value * $price;
-    echo"You have {$value} of snickers<br> Your total is \${$total} <br>";*/
-    $password = $_POST["password"];
-    $passLenght = strlen($password);
-    echo "{$_POST["username"]} <br>";
-    echo "{$password} <br>";
-    //get pokazuje w url wartości
-    //post nie pokazuje!!!
-    if(empty($password)){
-        echo "not decLARATED PASSWORD";
-} else {
-    if( $passLenght <= 4){
-        echo"password is too short! <br>";
-    } elseif($passLenght == 5){
-        echo"password is medium strong <br>";
-    }
-    else {
-        echo"password is strong <br>";
-    }
-};
-
-   
 
     $capitals = array("USA" => "Washington D.C", "Japan" => "Tokio", "Poland" => "Warsaw",);
-  /*  $capitals["Poland"] = "Gliwice";
-    //array_pop($capitals); - usuwa ostatnia shift usuwa pierwsza
-    $capitals["England"] = "London";
-    $keys = array_keys($capitals);
-    foreach($keys as $capital){
-        echo"capital {$capital} <br>";
-    }
-    $values = array_values($capitals);
-    foreach($values as $city){
-        echo"city {$city} <br>";
-    }
 
+    if(isset($_POST["login"])){
+        $password = $_POST["password"];
+        $passLenght = strlen($password);
+        $username = $_POST["username"];
+        $country = $_POST["country"];
 
-    //array_reverse obraca nam góra dół
-    //array_flip obraca nam składniki 
-   // echo"<br>{$capitals["USA"]} <br>";
-    foreach($capitals as $key => $value) {
-        echo"{$key} is {$value} <br>";
-    }
-    $counter = count($capitals);
-    echo"counter {$counter} <br>";
-    */
-    $capital = $capitals[$_POST["country"]];
-    echo$capital;
-
-    $thisValue = "lol";
-    if(empty($thisValue)){
-        echo"rain";
-    } else {
-        echo"sun";
+        if(empty($username)){
+            echo "set your username";
+        }
+        elseif(empty($password)){
+            echo "set your password";} 
+        elseif(empty($country)){
+            echo"set your country";
+        }
+    else {
+        $capital = $capitals[$_POST["country"]];
+        echo$capital;
+        if( $passLenght <= 4){
+            echo"password is too short! <br>";
+            
+        } elseif($passLenght == 5){
+            echo"password is medium strong <br>";
+        }
+        else {
+            echo"password is strong <br>";
+        }
     };
+    }
+    if(isset($_POST["credi_submit"])){
+        if(isset($_POST["credit_card"])){
+           $creditCard = $_POST["credit_card"];
+           switch ($creditCard) {
+            case "Visa":
+                echo"working {$creditCard}";
+                break;
+            case "MasterCard":
+                echo"working {$creditCard}";
+                break;
+            case "PayPal":
+                echo"working {$creditCard}";
+                break;
+           }
+        } else {
+            echo"plisclick";
+        }
+    } 
+    
+
 ?>
