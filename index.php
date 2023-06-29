@@ -13,16 +13,27 @@
         <input type="password" name="password"><br>
         <label>Country:</label><br>
         <input type="text" name="country"><br>
+        <label>Age:</label><br>
+        <input type="text" name="age"><br>
         <input type="submit" value="Log In" name="login">
     </form>
     <form action="index.php" method="post">
         <label>Visa</label>
         <input type="radio" name="credit_card" value="Visa"><br>
         <label>MasterCard</label>
-        <input type="radio" name="credit_card" value="MasterCard"><br>
+        <input type="radio" name="credit_card" value="MasterCard">
         <label>PayPal</label>
         <input type="radio" name="credit_card" value="PayPal"><br>
-        <input type="submit" name="credi_submit">
+        <input type="submit" name="credi_submit"><br><br><br>
+    </form>
+    <form action="index.php" method="post">
+        <input type="checkbox" name="food[]" value="pizza" id="pizza">
+        <label for="pizza">Pizza</label><br>
+        <input type="checkbox" name="food[]" value="kebab" id="kebab">
+        <label for="kebab">kebab</label><br>
+        <input type="checkbox" name="food[]" value="burger" id="burger">
+        <label for="burger">burger</label><br>
+        <input type="submit" value="what you like?" name="eat">
     </form>
 </body>
 </html>
@@ -35,6 +46,7 @@
         $passLenght = strlen($password);
         $username = $_POST["username"];
         $country = $_POST["country"];
+        $age = $_POST["age"];
 
         if(empty($username)){
             echo "set your username";
@@ -43,10 +55,21 @@
             echo "set your password";} 
         elseif(empty($country)){
             echo"set your country";
+        } 
+        elseif(empty($age)){
+            echo"set your age";
         }
     else {
         $capital = $capitals[$_POST["country"]];
         echo$capital;
+        $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
+        $age = filter_input(INPUT_POST, "age", FILTER_VALIDATE_INT);
+        if(empty($age)){
+            echo " <br> Hello {$username}! We don't know how old you really are. <br>";
+        } else{
+            echo " <br> Hello {$username} you have {$age} <br>";
+        }
+      
         if( $passLenght <= 4){
             echo"password is too short! <br>";
             
@@ -76,6 +99,18 @@
             echo"plisclick";
         }
     } 
+    if(isset($_POST["eat"])){
+        $food = $_POST["food"];
+        foreach($food as $oneFood){
+            echo $oneFood. "<br>";
+        }
+    }
     
+    $myName = "Tymek Slomski";
+    $myNumber = "507-362-050";
+    $myName = strtoupper($myName). "<br>";
+    $myNumber = str_replace("-", "", $myNumber);    
+    //strcmp sprawdza czy strin jest taki sam i oddaje warttości 1 albo 0 
+
 
 ?>
