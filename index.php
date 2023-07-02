@@ -112,5 +112,21 @@
     $myNumber = str_replace("-", "", $myNumber);    
     //strcmp sprawdza czy strin jest taki sam i oddaje warttości 1 albo 0 
 
+    setcookie("peyment", "paypal", time() - 1);
+    setcookie("lel", "123", time() + 84200);
+    setcookie("lol", "cooola", time() + 84200);
+    
+    foreach($_COOKIE as $key => $cooki){
+        echo"fiest argument {$key} sec {$cooki} <br>";
+    };
 
+    if(isset($_COOKIE['peyment'])){
+        echo"BUY WITH PAYPAL";
+    } else {
+        echo"BUY WUTH MASTERCARD";
+    };
+
+
+
+    include("footer.html");
 ?>
